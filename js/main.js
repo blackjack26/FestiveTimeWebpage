@@ -1,5 +1,3 @@
-loadOptions();
-
 var $submitButton = $('#submitButton');
 
 $submitButton.on('click', function(){
@@ -9,46 +7,45 @@ $submitButton.on('click', function(){
 	document.location = return_to + encodeURIComponent(JSON.stringify(getAndStoreConfigData()));
 });
 
-function loadOptions(){
-	var $batteryDisplayCheckbox = $('#batteryDisplayCheckbox');
-	var $timeFormatCheckbox = $('#timeFormatCheckbox');
-	var $temperatureTab = $('.temp-tab');
-	var $birthdayList = $('.item-bday-list');
+var $batteryDisplayCheckbox = $('#batteryDisplayCheckbox');
+var $timeFormatCheckbox = $('#timeFormatCheckbox');
+var $temperatureTab = $('.temp-tab');
+var $birthdayList = $('.item-bday-list');
 
-	console.log('Loaded: ' + JSON.stringify(localStorage));
+console.log('Loaded: ' + JSON.stringify(localStorage));
 
-	if(localStorage.temperatureFormat){
-		$batteryDisplayCheckbox[0].checked = localStorage.batteryDisplayOnOff === 'true';
-		$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
-		
-		// Setting active temperature
-		for(var i = 0; i < $temperatureTab.length; i++){
-			$($temperatureTab[i]).removeClass("active");
-			if($($temperatureTab[i]).html() === localStorage.temperatureFormat){
-				$($temperatureTab[i]).addClass("active");
-			}
-		}
-		
-		// Adding birthdays
-		var birthdayArr = localStorage.birthdayList.split(",");
-		for(var i = 0; i < birthdayArr.length; i+=2){
-			var name = birthdayArr[i];
-			var date = birthdayArr[i+1];
-		
-			var $item = $('<div class="item">'
-                          + '<p id="nameTxt">' + name + '</p> (<p id="dateTxt">' + date + '</p>)'
-                      + '</div>');
-
-			var deletebutton = $('<div class="delete-item"></div>');
-
-		    deletebutton.click(function(){
-		      $(this).parent().remove();
-		    });
-		    $item.append(deletebutton);
-          	$birthdayList.append($item);
+if(localStorage.temperatureFormat){
+	$batteryDisplayCheckbox[0].checked = localStorage.batteryDisplayOnOff === 'true';
+	$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
+	
+	// Setting active temperature
+	for(var i = 0; i < $temperatureTab.length; i++){
+		$($temperatureTab[i]).removeClass("active");
+		if($($temperatureTab[i]).html() === localStorage.temperatureFormat){
+			$($temperatureTab[i]).addClass("active");
 		}
 	}
+	
+	// Adding birthdays
+	var birthdayArr = localStorage.birthdayList.split(",");
+	for(var i = 0; i < birthdayArr.length; i+=2){
+		var name = birthdayArr[i];
+		var date = birthdayArr[i+1];
+	
+		var $item = $('<div class="item">'
+                      + '<p id="nameTxt">' + name + '</p> (<p id="dateTxt">' + date + '</p>)'
+                  + '</div>');
+
+		var deletebutton = $('<div class="delete-item"></div>');
+
+	    deletebutton.click(function(){
+	      $(this).parent().remove();
+	    });
+	    $item.append(deletebutton);
+      	$birthdayList.append($item);
+	}
 }
+
 function storeBirthdayArray(birthdayItems){
 	var $bdayArray = new Array(birthdayItems.length);
 	for(var i = 0; i < $bdayArray.length; i++){
