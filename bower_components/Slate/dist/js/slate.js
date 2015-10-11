@@ -381,7 +381,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 
 			$date.keyrelease(function(e) {
 		        var key = e.which;
-		        if (key === 13) {
+		        if (key === 13 && verifyDateInput($date)) {
 		          stopEditingDate($date, inbox, text);
 		        }
 		     });
@@ -400,6 +400,11 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 		          $(this).parent().remove();
 		        });
 		        ibx.append(deletebutton);
+			}
+
+			function verifyDateInput(date){
+				var pattern = /^\d{2}[-]\d{2}$/;
+				return pattern.test(date.val());
 			}
           }
         });
