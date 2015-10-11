@@ -7,3 +7,7 @@
 	color: #888888;
 	text-align: center;
 }
+
+.item-bday-list p{
+	display: inline-block;
+}

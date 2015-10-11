@@ -326,7 +326,85 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
           }
         });
       });
-    }
+    },
+
+    itemBdayList: function() {
+      this.each(function() {
+        var $list = $(this);
+
+        $list.children('label').each(function() {
+          var $deleteButton = $('<div class="delete-item"></div>');
+
+          $deleteButton.click(function() {
+            $(this).parent().remove();
+          });
+
+          $(this).append($deleteButton);
+        });
+
+        var $addButton = $('<div class="item add-item">Add a birthday...</div>');
+
+        $list.append($addButton);
+
+        $addButton.click(function() {
+          var $inbox = $('<div class="item">'
+                        + '<div class="item-input-wrapper">'
+                          + '<input class="item-input" type="text" name="focus-box" placeholder="Name">'
+                        + '</div>'
+                      + '</div>');
+
+          $inbox.insertBefore($list.children().last());
+
+          var $input = $inbox.find('input');
+          $input.focus();
+
+          $input.keypress(function(e) {
+            var key = e.which;
+            if (key === 13) {
+              stopEditing($input, $inbox);
+            }
+          });
+
+          $input.focusout(function() {
+            stopEditing($input, $inbox);
+          });
+
+          function stopEditing(input, inbox) {
+            var text = input.val();
+
+			inbox.html('<div class="item-input-wrapper">'
+                       + '<input class="item-input" type="text" name="focus-box" placeholder="Date (MM-DD)">'
+                     + '</div>');
+
+			var $date = inbox.find('input');
+          	$date.focus();
+
+			$date.keypress(function(e) {
+		        var key = e.which;
+		        if (key === 13) {
+		          stopEditingDate($date, inbox, text);
+		        }
+		     });
+
+		      $date.focusout(function() {
+		        stopEditingDate($date, inbox, text);
+		     });
+
+			function stopEditingDate(date, ibx, nameTxt){
+				var dateTxt = date.val();
+		        ibx.html('<p id="nameTxt">' + nameTxt + '</p> (<p id="dateTxt">' + dateTxt + '</p>)');
+
+		        var deletebutton = $('<div class="delete-item"></div>');
+
+		        deletebutton.click(function(){
+		          $(this).parent().remove();
+		        });
+		        ibx.append(deletebutton);
+			}
+          }
+        });
+      });
+    },
   });
 
   $(function() {
@@ -342,5 +420,6 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
     $('.item-slider').itemSlider();
     $('.item-draggable-list').itemDraggableList();
     $('.item-dynamic-list').itemDynamicList();
+	$('.item-bday-list').itemBdayList();
   });
 }(Zepto, Sortable));
