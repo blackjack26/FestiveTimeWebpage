@@ -358,7 +358,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
           var $input = $inbox.find('input');
           $input.focus();
 
-          $input.keyrelease(function(e) {
+          $input.keypress(function(e) {
             var key = e.which;
             if (key === 13) {
               stopEditing($input, $inbox);
@@ -379,7 +379,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 			var $date = inbox.find('input');
           	$date.focus();
 
-			$date.keyrelease(function(e) {
+			$date.keypress(function(e) {
 		        var key = e.which;
 		        if (key === 13 && verifyDateInput($date)) {
 		          stopEditingDate($date, inbox, text);
