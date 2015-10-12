@@ -365,12 +365,25 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 			var $date = $inbox.find("#dateTxt");
 			$name.focus();			
 
+			$name.keypress(function(e){
+				var key = e.which;
+				if(key == 13)
+					$date.focus();
+			});
+					
+
 			var $sendButton = $inbox.find("#add-bday");
 
 			$sendButton.click(function(){
 				if(verifyInput($name, $date)){				
 					stopEditing($name, $date, $inbox);
 				}
+			});			
+
+			$date.keypress(function(e){
+				var key = e.which;
+				if(key == 13)
+					$sendButton.click();
 			});
 
 			function stopEditing(name, date, ibx){
