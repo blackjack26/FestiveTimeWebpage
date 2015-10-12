@@ -13,12 +13,14 @@ var $batteryDisplayCheckbox = $('#batteryDisplayCheckbox');
 var $timeFormatCheckbox = $('#timeFormatCheckbox');
 var $temperatureTab = $('.temp-tab');
 var $birthdayList = $('.item-bday-list');
+var $invertColorCheckbox = $('#invertColorCheckbox');
 
 console.log('Loaded: ' + JSON.stringify(localStorage));
 
 if(localStorage.temperatureFormat){
 	$batteryDisplayCheckbox[0].checked = localStorage.batteryDisplayOnOff === 'true';
 	$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
+	$invertColorCheckbox[0].checked = localStorage.invertColor === 'true';
 	
 	// Setting active temperature
 	for(var i = 0; i < $temperatureTab.length; i++){
@@ -63,18 +65,21 @@ function getAndStoreConfigData() {
 	var $timeFormatCheckbox = $('#timeFormatCheckbox');
 	var $temperatureTab = $('.temp-tab.active');
 	var $birthdayItems = $('.item-bday-list').children(".item:not(.add-item)");
+	var $invertColorCheckbox = $('#invertColorCheckbox');
 
 	var options = {
 		twentyFourHourFormat: $timeFormatCheckbox[0].checked,
 		batteryDisplayOnOff: $batteryDisplayCheckbox[0].checked,
 		temperatureFormat: $temperatureTab.html(),
-		birthdayList: storeBirthdayArray($birthdayItems)
+		birthdayList: storeBirthdayArray($birthdayItems),
+		invertColor: $invertColorCheckbox[0].checked
 	};
 
 	localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
 	localStorage.batteryDisplayOnOff = options.batteryDisplayOnOff;
 	localStorage.temperatureFormat = options.temperatureFormat;
 	localStorage.birthdayList = options.birthdayList;
+	localStorage.invertColor = options.invertColor;
 
 	console.log("Got options: " + JSON.stringify(options));
 	return options;
