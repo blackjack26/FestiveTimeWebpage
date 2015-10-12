@@ -347,7 +347,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
         $list.append($addButton);
 
         $addButton.click(function() {
-			var $inbox = $('<div class="item">'
+			var $inbox = $('<div class="item open-item">'
 						+ '<div id="nameTxtWrap" class="item-input-wrapper">'
 						  + '<input min="1" max="10" id="nameTxt" class="item-input" type="text" name="focus-box" placeholder="Name">'
 						+ '</div>'
@@ -397,6 +397,7 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 				  $(this).parent().remove();
 				});
 				ibx.append(deletebutton);
+				ibx.removeClass("open-item");
 			}
 
 			function verifyInput(name, date){
