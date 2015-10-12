@@ -337,12 +337,14 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 
           $deleteButton.click(function() {
             $(this).parent().remove();
+				if($list.find("#new-bday").length == 0)
+					$list.append($addButton);
           });
 
           $(this).append($deleteButton);
         });
 
-        var $addButton = $('<div class="item add-item">Add a birthday...</div>');
+        var $addButton = $('<div id="new-bday" class="item add-item">Add a birthday...</div>');
 
         $list.append($addButton);
 
@@ -395,9 +397,14 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
 
 				deletebutton.click(function(){
 				  $(this).parent().remove();
+				  if($list.find("#new-bday").length == 0)
+					$list.append($addButton);
 				});
 				ibx.append(deletebutton);
 				ibx.removeClass("open-item");
+				if($list.children().length - 1 == 10)
+					$list.find("#new-bday").remove();
+					
 			}
 
 			function verifyInput(name, date){
