@@ -11,3 +11,18 @@
 .item-bday-list p{
 	display: inline-block;
 }
+
+#nameTxtWrap,
+#dateTxtWrap {
+	width: 46%;
+	display: inline-block;
+	margin: 0 1%;
+}
+
+#add-bday{
+	margin-top: 10px;
+}
+
+.input-error{
+	box-shadow: 0px 0px 3px 1px #F00;
+}

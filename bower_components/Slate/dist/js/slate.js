@@ -347,66 +347,60 @@ var Zepto=function(){function L(t){return null==t?String(t):j[S.call(t)]||"objec
         $list.append($addButton);
 
         $addButton.click(function() {
-          var $inbox = $('<div class="item">'
-                        + '<div class="item-input-wrapper">'
-                          + '<input class="item-input" type="text" name="focus-box" placeholder="Name">'
-                        + '</div>'
-                      + '</div>');
+			var $inbox = $('<div class="item">'
+						+ '<div id="nameTxtWrap" class="item-input-wrapper">'
+						  + '<input min="1" max="10" id="nameTxt" class="item-input" type="text" name="focus-box" placeholder="Name">'
+						+ '</div>'
+						+ '<div id="dateTxtWrap" class="item-input-wrapper">'
+						  + '<input max="5" id="dateTxt" class="item-input" type="text" name="focus-box" placeholder="Date (MM-DD)">'
+						+ '</div>'
+						+ '<div class="button-container">'
+						  + '<input id="add-bday" class="item-button" type="button" value="ADD"></input>'
+						+ '</div>'
+					  + '</div>');
 
-          $inbox.insertBefore($list.children().last());
+			$inbox.insertBefore($list.children().last());
 
-          var $input = $inbox.find('input');
-          $input.focus();
+			var $name = $inbox.find('#nameTxt');
+			var $date = $inbox.find("#dateTxt");
+			$name.focus();			
 
-          $input.keypress(function(e) {
-            var key = e.which;
-            if (key === 13) {
-              stopEditing($input, $inbox);
-            }
-          });
+			var $sendButton = $inbox.find("#add-bday");
 
-          $input.focusout(function() {
-            stopEditing($input, $inbox);
-          });
+			$sendButton.click(function(){
+				if(verifyInput($name, $date)){				
+					stopEditing($name, $date, $inbox);
+				}
+			});
 
-          function stopEditing(input, inbox) {
-            var text = input.val();
-
-			inbox.html('<div class="item-input-wrapper">'
-                       + '<input class="item-input" type="text" name="focus-box" placeholder="Date (MM-DD)">'
-                     + '</div>');
-
-			var $date = inbox.find('input');
-          	$date.focus();
-
-			$date.keypress(function(e) {
-		        var key = e.which;
-		        if (key === 13 && verifyDateInput($date)) {
-		          stopEditingDate($date, inbox, text);
-		        }
-		     });
-
-		      $date.focusout(function() {
-		        stopEditingDate($date, inbox, text);
-		     });
-
-			function stopEditingDate(date, ibx, nameTxt){
+			function stopEditing(name, date, ibx){
 				var dateTxt = date.val();
-		        ibx.html('<p id="nameTxt">' + nameTxt + '</p> (<p id="dateTxt">' + dateTxt + '</p>)');
+				var nameTxt = name.val();
+				ibx.html('<p id="nameTxt">' + nameTxt + '</p> (<p id="dateTxt">' + dateTxt + '</p>)');
 
-		        var deletebutton = $('<div class="delete-item"></div>');
+				var deletebutton = $('<div class="delete-item"></div>');
 
-		        deletebutton.click(function(){
-		          $(this).parent().remove();
-		        });
-		        ibx.append(deletebutton);
+				deletebutton.click(function(){
+				  $(this).parent().remove();
+				});
+				ibx.append(deletebutton);
 			}
 
-			function verifyDateInput(date){
+			function verifyInput(name, date){
+				// Name
+				var len = name.val().length;
+				var maxNum = name.attr("max");
+				var minNum = name.attr("min");
+				var nameOkay = len <= maxNum && len >= minNum;
+				(nameOkay) ? $("#nameTxtWrap").removeClass("input-error") :  $("#nameTxtWrap").addClass("input-error");
+
+				// Date
 				var pattern = /^\d{2}[-]\d{2}$/;
-				return pattern.test(date.val());
-			}
-          }
+				var dateOkay = pattern.test(date.val());
+				(dateOkay) ? $("#dateTxtWrap").removeClass("input-error") :  $("#dateTxtWrap").addClass("input-error");
+
+				return nameOkay && dateOkay;
+			}			
         });
       });
     },
