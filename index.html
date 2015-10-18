@@ -35,13 +35,26 @@
 				Invert Colors
 				<input id='invertColorCheckbox' type='checkbox' class="item-checkbox">
             </label>
-            <div id="temperatureTab" class="item tab-buttons">
+		</div>
+    </div>
+
+	<div class='item-container'>
+		<div class='item-container-header'>Weather</div>
+		<div class='item-container-content'>
+			<label class='item'>
+				Use Location
+				<input id='locationUsageCheckbox' type='checkbox' class="item-toggle" name="toggle-2" checked>
+			</label>
+			<div id="locationCityBox" style="display:none;" class="item-input-wrapper">
+				<input id="cityInput" class="item-input" type="text" name="focus-box" placeholder="City Name">
+			</div>
+			<div id="temperatureTab" class="item tab-buttons">
                 <a name="temp" class="temp-tab tab-button active">Fahrenheit</a>
                 <a name="temp" class="temp-tab tab-button">Celsius</a>
                 <a name="temp" class="temp-tab tab-button">Kelvin</a>
             </div>
 		</div>
-    </div>
+	</div>
 
 	<div class='item-container'>
         <div class='item-container-header'>Birthdays (10 max)</div>
@@ -61,6 +74,6 @@
     </div>
 
 	<script src='/FestiveTimeWebpage/bower_components/Slate/dist/js/slate.js'></script>
-	<script src='/FestiveTimeWebpage/js/main.js'></script>	
+	<script src='/FestiveTimeWebpage/js/main.js'></script>
 </body>
 </html>
