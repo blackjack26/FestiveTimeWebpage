@@ -15,7 +15,7 @@ var $temperatureTab = $('.temp-tab');
 var $birthdayList = $('.item-bday-list');
 var $invertColorCheckbox = $('#invertColorCheckbox');
 var $locationUsageCheckbox = $("#locationUsageCheckbox");
-var $cityBox = $("#locationCityBox");
+var $cityBox = $("#cityInput");
 
 console.log('Loaded: ' + JSON.stringify(localStorage));
 
@@ -25,7 +25,7 @@ if(localStorage.temperatureFormat){
 	$invertColorCheckbox[0].checked = localStorage.invertColor === 'true';
 	$locationUsageCheckbox[0].checked = localStorage.useLocation === 'true';
 	updateLocationBox();
-	$cityBox.value = localStorage.location;
+	$cityBox[0].value = localStorage.location;
 	
 	// Setting active temperature
 	for(var i = 0; i < $temperatureTab.length; i++){
@@ -72,7 +72,7 @@ function getAndStoreConfigData() {
 	var $birthdayItems = $('.item-bday-list').children(".item:not(.add-item)");
 	var $invertColorCheckbox = $('#invertColorCheckbox');
 	var $locationUsageCheckbox = $("#locationUsageCheckbox");
-	var $cityBox = $("#locationCityBox");
+	var $cityBox = $("#cityInput");
 
 	var options = {
 		twentyFourHourFormat: $timeFormatCheckbox[0].checked,
@@ -81,7 +81,7 @@ function getAndStoreConfigData() {
 		birthdayList: storeBirthdayArray($birthdayItems),
 		invertColor: $invertColorCheckbox[0].checked,
 		useLocation: $locationUsageCheckbox[0].checked,
-		location: $cityBox.value
+		location: $cityBox[0].value
 	};
 
 	localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
@@ -109,15 +109,19 @@ function getQueryParam(variable, defaultValue){
 }
 
 function updateLocationBox(){
-	if(!document.getElementById("locationUsageCheckbox").checked)
+	if(!document.getElementById("locationUsageCheckbox").checked){
 		document.getElementById("locationCityBox").style.display = "block";
-	else
+	}else{
 		document.getElementById("locationCityBox").style.display = "none";
+		document.getElementById("locationCityBox").value = "";
+	}
 }
 
 document.getElementById("locationUsageCheckbox").onclick = function(){
 	if(!this.checked)
 		document.getElementById("locationCityBox").style.display = "block";
-	else
+	else{
 		document.getElementById("locationCityBox").style.display = "none";
+		document.getElementById("locationCityBox").value = "";
+	}
 };
