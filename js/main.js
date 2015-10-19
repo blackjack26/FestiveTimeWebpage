@@ -14,6 +14,8 @@ var $timeFormatCheckbox = $('#timeFormatCheckbox');
 var $temperatureTab = $('.temp-tab');
 var $birthdayList = $('.item-bday-list');
 var $invertColorCheckbox = $('#invertColorCheckbox');
+var $locationUsageCheckbox = $("#locationUsageCheckbox");
+var $cityBox = $("#locationCityBox");
 
 console.log('Loaded: ' + JSON.stringify(localStorage));
 
@@ -21,6 +23,9 @@ if(localStorage.temperatureFormat){
 	$batteryDisplayCheckbox[0].checked = localStorage.batteryDisplayOnOff === 'true';
 	$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
 	$invertColorCheckbox[0].checked = localStorage.invertColor === 'true';
+	$locationUsageStorage[0].checked = localStorage.useLocation === 'true';
+	updateLocationBox();
+	$cityBox.value = localStorage.location;
 	
 	// Setting active temperature
 	for(var i = 0; i < $temperatureTab.length; i++){
@@ -66,13 +71,17 @@ function getAndStoreConfigData() {
 	var $temperatureTab = $('.temp-tab.active');
 	var $birthdayItems = $('.item-bday-list').children(".item:not(.add-item)");
 	var $invertColorCheckbox = $('#invertColorCheckbox');
+	var $locationUsageCheckbox = $("#locationUsageCheckbox");
+	var $cityBox = $("#locationCityBox");
 
 	var options = {
 		twentyFourHourFormat: $timeFormatCheckbox[0].checked,
 		batteryDisplayOnOff: $batteryDisplayCheckbox[0].checked,
 		temperatureFormat: $temperatureTab.html(),
 		birthdayList: storeBirthdayArray($birthdayItems),
-		invertColor: $invertColorCheckbox[0].checked
+		invertColor: $invertColorCheckbox[0].checked,
+		useLocation = $locationUsageCheckbox.checked,
+		location = $locationCityBox.value
 	};
 
 	localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
@@ -80,6 +89,8 @@ function getAndStoreConfigData() {
 	localStorage.temperatureFormat = options.temperatureFormat;
 	localStorage.birthdayList = options.birthdayList;
 	localStorage.invertColor = options.invertColor;
+	localStorage.useLocation = options.useLocation;
+	localStorage.location = options.location;
 
 	console.log("Got options: " + JSON.stringify(options));
 	return options;
@@ -96,3 +107,17 @@ function getQueryParam(variable, defaultValue){
 	}
 	return defaultValue || false;
 }
+
+function updateLocationBox(){
+	if(!document.getElementById("locationUsageCheckbox").checked)
+		document.getElementById("locationCityBox").style.display = "block";
+	else
+		document.getElementById("locationCityBox").style.display = "none";
+}
+
+document.getElementById("locationUsageCheckbox").onclick = function(){
+	if(!this.checked)
+		document.getElementById("locationCityBox").style.display = "block";
+	else
+		document.getElementById("locationCityBox").style.display = "none";
+};
