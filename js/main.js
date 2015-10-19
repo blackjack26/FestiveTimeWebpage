@@ -81,7 +81,7 @@ function getAndStoreConfigData() {
 		birthdayList: storeBirthdayArray($birthdayItems),
 		invertColor: $invertColorCheckbox[0].checked,
 		useLocation: $locationUsageCheckbox[0].checked,
-		location: $locationCityBox.value
+		location: $cityBox.value
 	};
 
 	localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
