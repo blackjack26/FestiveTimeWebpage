@@ -23,7 +23,7 @@ if(localStorage.temperatureFormat){
 	$batteryDisplayCheckbox[0].checked = localStorage.batteryDisplayOnOff === 'true';
 	$timeFormatCheckbox[0].checked = localStorage.twentyFourHourFormat === 'true';
 	$invertColorCheckbox[0].checked = localStorage.invertColor === 'true';
-	$locationUsageStorage[0].checked = localStorage.useLocation === 'true';
+	$locationUsageCheckbox[0].checked = localStorage.useLocation === 'true';
 	updateLocationBox();
 	$cityBox.value = localStorage.location;
 	
@@ -80,7 +80,7 @@ function getAndStoreConfigData() {
 		temperatureFormat: $temperatureTab.html(),
 		birthdayList: storeBirthdayArray($birthdayItems),
 		invertColor: $invertColorCheckbox[0].checked,
-		useLocation = $locationUsageCheckbox.checked,
+		useLocation = $locationUsageCheckbox[0].checked,
 		location = $locationCityBox.value
 	};
 
