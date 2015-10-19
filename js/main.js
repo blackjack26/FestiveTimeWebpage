@@ -80,8 +80,8 @@ function getAndStoreConfigData() {
 		temperatureFormat: $temperatureTab.html(),
 		birthdayList: storeBirthdayArray($birthdayItems),
 		invertColor: $invertColorCheckbox[0].checked,
-		useLocation = $locationUsageCheckbox[0].checked,
-		location = $locationCityBox.value
+		useLocation: $locationUsageCheckbox[0].checked,
+		location: $locationCityBox.value
 	};
 
 	localStorage.twentyFourHourFormat = options.twentyFourHourFormat;
